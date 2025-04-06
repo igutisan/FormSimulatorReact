@@ -1,0 +1,179 @@
+@use "sass:map";
+@use "sass:color";
+@use "variables" as vars;
+
+// Manejo de breakpoints responsive
+@mixin media-breakpoint($key) {
+  $breakpoint: map.get(vars.$breakpoints, $key);
+  
+  @if $breakpoint {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint \"#{$key}\" no encontrado en $breakpoints.";
+  }
+}
+
+// Flexbox utilities
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Grid utilities
+@mixin grid($columns: 1, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  gap: $gap;
+}
+
+// Transiciones
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease) {
+  transition-property: $properties;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+}
+
+// Tipografía
+@mixin font($size: 'base', $weight: 'normal', $family: 'sans') {
+  font-size: map.get(vars.$font-size, $size);
+  font-weight: map.get(vars.$font-weight, $weight);
+  font-family: map.get(vars.$font-family, $family);
+}
+
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Sombras
+@mixin shadow($size: 'DEFAULT') {
+  box-shadow: map.get(vars.$box-shadow, $size);
+}
+
+// Gradientes
+@mixin gradient($direction: to right, $start-color: map.get(vars.$colors, 'primary'), $end-color: map.get(vars.$colors, 'secondary')) {
+  background: linear-gradient($direction, $start-color, $end-color);
+}
+
+// Botones
+@mixin button($variant: 'primary', $size: 'md', $rounded: 'DEFAULT') {
+  @include font('base', 'semibold');
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: map.get(vars.$border-radius, $rounded);
+  cursor: pointer;
+  
+  @if $size == 'sm' {
+    padding: map.get(vars.$spacing, '1.5') map.get(vars.$spacing, '3');
+    font-size: map.get(vars.$font-size, 'sm');
+  } @else if $size == 'lg' {
+    padding: map.get(vars.$spacing, '3') map.get(vars.$spacing, '6');
+    font-size: map.get(vars.$font-size, 'lg');
+  } @else {
+    padding: map.get(vars.$spacing, '2') map.get(vars.$spacing, '4');
+    font-size: map.get(vars.$font-size, 'base');
+  }
+  
+  @if $variant == 'primary' {
+    background-color: map.get(vars.$colors, 'primary');
+    color: map.get(vars.$colors, 'white');
+    &:hover {
+      background-color: color.adjust(map.get(vars.$colors, 'primary'), $lightness: -10%);
+    }
+  } @else if $variant == 'secondary' {
+    background-color: map.get(vars.$colors, 'secondary');
+    color: map.get(vars.$colors, 'white');
+    &:hover {
+      background-color: color.adjust(map.get(vars.$colors, 'secondary'), $lightness: -10%);
+    }
+  } @else if $variant == 'outline' {
+    background-color: transparent;
+    color: map.get(vars.$colors, 'primary');
+    border: 1px solid map.get(vars.$colors, 'primary');
+    &:hover {
+      background-color: color.adjust(map.get(vars.$colors, 'primary'), $alpha: -0.9);
+    }
+  } @else if $variant == 'ghost' {
+    background-color: transparent;
+    color: map.get(vars.$colors, 'primary');
+    &:hover {
+      background-color: color.adjust(map.get(vars.$colors, 'primary'), $alpha: -0.9);
+    }
+  }
+}
+
+// Tarjetas
+@mixin card($padding: '4', $shadow: 'md', $radius: 'md') {
+  padding: map.get(vars.$spacing, $padding);
+  border-radius: map.get(vars.$border-radius, $radius);
+  background-color: map.get(vars.$colors, 'white');
+  @include shadow($shadow);
+}
+
+// Establece ancho y alto de forma igual (útil para iconos, avatares)
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+// Posicionamiento absoluto
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// Posicionamiento fijo
+@mixin fixed($top: null, $right: null, $bottom: null, $left: null) {
+  position: fixed;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// Utilidad para posicionar elemento centrado absolutamente
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Utilidades para depuración
+@mixin debug($color: rgba(255, 0, 0, 0.2)) {
+  border: 1px solid $color;
+} 

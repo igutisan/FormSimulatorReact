@@ -1,0 +1,219 @@
+// Importamos los módulos usando @use
+@use "sass:math";
+@use "sass:color";
+@use "sass:map";
+@use "sass:string";
+@use "sass:meta";
+
+// Importamos nuestras variables, mixins y personalización de Tailwind
+@use "variables";
+@use "mixins";
+@use "tailwind-custom";
+
+// Estilos base
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: map.get(variables.$font-family, 'sans');
+  color: map.get(variables.$colors, 'dark');
+  background-color: map.get(variables.$colors, 'light');
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: map.get(variables.$spacing, '4');
+  font-weight: map.get(variables.$font-weight, 'semibold');
+}
+
+h1 {
+  font-size: map.get(variables.$font-size, '3xl');
+  
+  @include mixins.media-breakpoint('md') {
+    font-size: map.get(variables.$font-size, '4xl');
+  }
+  
+  @include mixins.media-breakpoint('lg') {
+    font-size: map.get(variables.$font-size, '5xl');
+  }
+}
+
+h2 {
+  font-size: map.get(variables.$font-size, '2xl');
+  
+  @include mixins.media-breakpoint('md') {
+    font-size: map.get(variables.$font-size, '3xl');
+  }
+}
+
+h3 {
+  font-size: map.get(variables.$font-size, 'xl');
+  
+  @include mixins.media-breakpoint('md') {
+    font-size: map.get(variables.$font-size, '2xl');
+  }
+}
+
+a {
+  color: map.get(variables.$colors, 'primary');
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: color.adjust(map.get(variables.$colors, 'primary'), $lightness: -10%);
+  }
+}
+
+// Clases de utilidad comunes
+
+// Contenedor
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: map.get(variables.$spacing, '4');
+  padding-right: map.get(variables.$spacing, '4');
+  
+  @include mixins.media-breakpoint('sm') {
+    max-width: map.get(variables.$breakpoints, 'sm');
+  }
+  
+  @include mixins.media-breakpoint('md') {
+    max-width: map.get(variables.$breakpoints, 'md');
+  }
+  
+  @include mixins.media-breakpoint('lg') {
+    max-width: map.get(variables.$breakpoints, 'lg');
+  }
+  
+  @include mixins.media-breakpoint('xl') {
+    max-width: map.get(variables.$breakpoints, 'xl');
+  }
+}
+
+// Botones
+.btn {
+  @include mixins.button();
+  
+  &-primary {
+    @include mixins.button('primary');
+  }
+  
+  &-secondary {
+    @include mixins.button('secondary');
+  }
+  
+  &-outline {
+    @include mixins.button('outline');
+  }
+  
+  &-ghost {
+    @include mixins.button('ghost');
+  }
+  
+  &-sm {
+    @include mixins.button('primary', 'sm');
+  }
+  
+  &-lg {
+    @include mixins.button('primary', 'lg');
+  }
+}
+
+// Card
+.card {
+  @include mixins.card();
+}
+
+// Utilities
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  @include mixins.flex-column();
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Espaciado
+@each $name, $value in variables.$spacing {
+  .mt-#{$name} {
+    margin-top: $value;
+  }
+  
+  .mb-#{$name} {
+    margin-bottom: $value;
+  }
+  
+  .ml-#{$name} {
+    margin-left: $value;
+  }
+  
+  .mr-#{$name} {
+    margin-right: $value;
+  }
+  
+  .mx-#{$name} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+  
+  .my-#{$name} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+  
+  .pt-#{$name} {
+    padding-top: $value;
+  }
+  
+  .pb-#{$name} {
+    padding-bottom: $value;
+  }
+  
+  .pl-#{$name} {
+    padding-left: $value;
+  }
+  
+  .pr-#{$name} {
+    padding-right: $value;
+  }
+  
+  .px-#{$name} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+  
+  .py-#{$name} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// Importar componentes específicos o módulos adicionales aquí
+// @use "components/buttons";
+// @use "components/forms";
+// etc. 

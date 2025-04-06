@@ -1,0 +1,44 @@
+@use '../../assets/styles/variables' as vars;
+@use '../../assets/styles/mixins' as mix;
+@use 'sass:map';
+
+.btn {
+  // Utilizamos nuestro mixin para botones
+  @include mix.button();
+  
+  // Personalizaciones adicionales
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  // Estado deshabilitado
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  // Tamaños utilizando nuestras variables
+  &.btn-sm {
+    @include mix.button('primary', 'sm');
+  }
+  
+  &.btn-lg {
+    @include mix.button('primary', 'lg');
+  }
+  
+  // Variantes adicionales no incluidas en el mixin base
+  &.btn-rounded {
+    border-radius: 9999px; // o utilizando nuestra variable: map.get(vars.$border-radius, 'full');
+  }
+  
+  &.btn-icon {
+    @include mix.flex-center();
+    padding: map.get(vars.$spacing, '2');
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+} 
