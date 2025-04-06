@@ -11,7 +11,7 @@ type QuestionsProps = {
   onGoBack: () => void;
 }
 
-// Selección aleatoria de 10 preguntas
+
 let surveyQuestions: QuestionItem[];
 const allQuestions: QuestionItem[] = getAllQuestions();
 surveyQuestions = [];

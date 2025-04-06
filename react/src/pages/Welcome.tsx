@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Button from '../components/Button/Button';
 import '../assets/styles/pages/Welcome.scss';
 
-interface WelcomeProps {
+type WelcomeProps ={
   onStartSurvey: () => void;
 }
 

@@ -2,7 +2,7 @@
 @use "sass:map";
 @use "sass:meta";
 
-// Aquí definimos las variables que Tailwind usará para generar sus clases
+//  variables que Tailwind usará para generar sus clases
 :root {
   // Colores
   @each $name, $value in vars.$colors {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import Welcome from './pages/Welcome';
 import Questions from './pages/Questions';
 import './assets/styles/main.scss';
