@@ -60,7 +60,7 @@ export let arrayMultipleSelections: MultipleSelection[] = [
         option4: "Más opciones de pago",
         option5: "Chat en vivo 24/7",
         minSelections: 0,
-        required: false
+        required: true
     }
 ]
 

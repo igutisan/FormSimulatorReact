@@ -22,7 +22,7 @@ export let arrayOpenQuestions: OpenQuestion[] = [
         question: "¿Cómo podríamos superar sus expectativas en el futuro?",
         placeholder: "Nos interesa conocer su opinión...",
         maxLength: 300,
-        required: false
+        required: true
     },
     {
         question: "Si tuvo algún problema con nuestro servicio, ¿podría describirlo?",
